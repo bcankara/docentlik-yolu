@@ -58,11 +58,8 @@ const Auth = {
 
     async logout() {
         await API.logout();
-        State.isLoggedIn = false;
-        State.isVisitorMode = false;
-        State.reset();
-        this.showLogin();
-        UI.updateAll();
+        // Sayfayı yenile - session cookie'sinin temizlenmesini garanti eder
+        window.location.reload();
     },
 
     enterVisitorMode() {

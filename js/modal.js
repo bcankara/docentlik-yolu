@@ -56,9 +56,12 @@ const Modal = {
             const task = State.tasks.find(t => t.id === kriter.kriter_kodu);
             if (!task) return;
 
-            const isCompleted = task.checkbox ? task.checked : task.count > 0;
+            const isCompleted = task.checkbox ? task.checked : (task.publications ? task.publications.length > 0 : task.count > 0);
 
-            if (task.checkbox) {
+            // Yazar bazlı puan hesaplama varsa (makaleler için)
+            if (task.puanHesaplama && task.publications !== null) {
+                html += this.renderAuthorBasedTask(task, kriter);
+            } else if (task.checkbox) {
                 html += `
                     <div class="task-item ${isCompleted ? 'completed' : ''}" data-task-id="${task.id}" onclick="Modal.toggleCheckbox('${task.id}')">
                         <div class="task-checkbox"></div>
@@ -104,10 +107,173 @@ const Modal = {
         body.innerHTML = html;
     },
 
+    // Yazar bazlı puan hesaplama için task render
+    renderAuthorBasedTask(task, kriter) {
+        const totalPoints = this.calculateTaskPoints(task);
+        const pubCount = task.publications ? task.publications.length : 0;
+
+        let html = `
+            <div class="task-item author-task ${pubCount > 0 ? 'completed' : ''}" data-task-id="${task.id}">
+                <div class="task-content" style="width: 100%;">
+                    <div class="task-header-row">
+                        <div class="task-name">${kriter.kriter_adi}</div>
+                        <div class="task-total-points">${Math.round(totalPoints * 10) / 10} puan</div>
+                    </div>
+                    <div class="task-meta">
+                        <span class="task-points">Temel: ${kriter.puan} p</span>
+                        <span class="pub-count">${pubCount} yayın</span>
+                    </div>
+        `;
+
+        // Mevcut yayınları listele
+        if (task.publications && task.publications.length > 0) {
+            html += `<div class="publications-list">`;
+            task.publications.forEach((pub, index) => {
+                const pubPoints = this.calculateSinglePublicationPoints(task, pub);
+                html += `
+                    <div class="publication-item">
+                        <div class="pub-info">
+                            <span class="pub-number">#${index + 1}</span>
+                            <span class="pub-details">${this.getAuthorTypeLabel(pub)} → ${Math.round(pubPoints * 10) / 10}p</span>
+                        </div>
+                        <button class="pub-remove" onclick="Modal.removePublication('${task.id}', ${index})">×</button>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+        }
+
+        // Yeni yayın ekleme formu
+        html += `
+            <div class="add-publication-form" id="pub-form-${task.id}">
+                <div class="pub-form-row">
+                    <select id="author-count-${task.id}" class="author-select" onchange="Modal.updateAuthorOptions('${task.id}')">
+                        <option value="1">Tek yazar</option>
+                        <option value="2">2 yazar</option>
+                        <option value="3">3+ yazar</option>
+                    </select>
+                    <select id="author-position-${task.id}" class="author-select">
+                        <option value="baslica">Başlıca yazar</option>
+                    </select>
+                    <button class="add-pub-btn" onclick="Modal.addPublication('${task.id}')">+ Ekle</button>
+                </div>
+            </div>
+        `;
+
+        html += `</div></div>`;
+        return html;
+    },
+
+    getAuthorTypeLabel(pub) {
+        const labels = {
+            'tek_yazar': 'Tek yazar',
+            'iki_yazar_baslica': '2 yazar (başlıca)',
+            'iki_yazar_ikinci': '2 yazar (ikinci)',
+            'cok_yazar_baslica': '3+ yazar (başlıca)',
+            'cok_yazar_diger': '3+ yazar (diğer)'
+        };
+        return labels[pub.type] || pub.type;
+    },
+
+    updateAuthorOptions(taskId) {
+        const countEl = document.getElementById(`author-count-${taskId}`);
+        const posEl = document.getElementById(`author-position-${taskId}`);
+        if (!countEl || !posEl) return;
+
+        const count = parseInt(countEl.value);
+
+        if (count === 1) {
+            posEl.innerHTML = `<option value="baslica">Başlıca yazar</option>`;
+        } else if (count === 2) {
+            posEl.innerHTML = `
+                <option value="baslica">Başlıca yazar</option>
+                <option value="ikinci">İkinci yazar</option>
+            `;
+        } else {
+            posEl.innerHTML = `
+                <option value="baslica">Başlıca yazar</option>
+                <option value="diger">Diğer yazar</option>
+            `;
+        }
+    },
+
+    addPublication(taskId) {
+        const task = State.tasks.find(t => t.id === taskId);
+        if (!task || !task.publications) return;
+
+        const countEl = document.getElementById(`author-count-${taskId}`);
+        const posEl = document.getElementById(`author-position-${taskId}`);
+        if (!countEl || !posEl) return;
+
+        const count = parseInt(countEl.value);
+        const position = posEl.value;
+
+        // Yazar tipini belirle
+        let authorType;
+        if (count === 1) {
+            authorType = 'tek_yazar';
+        } else if (count === 2) {
+            authorType = position === 'baslica' ? 'iki_yazar_baslica' : 'iki_yazar_ikinci';
+        } else {
+            authorType = position === 'baslica' ? 'cok_yazar_baslica' : 'cok_yazar_diger';
+        }
+
+        task.publications.push({
+            type: authorType,
+            authorCount: count,
+            addedAt: Date.now()
+        });
+
+        // Modal'ı yeniden render et
+        const madde = State.criteriaData.kriterler.find(m => m.madde_no === this.currentMaddeNo);
+        if (madde) this.renderBody(madde);
+
+        this.afterUpdate();
+    },
+
+    removePublication(taskId, index) {
+        const task = State.tasks.find(t => t.id === taskId);
+        if (!task || !task.publications) return;
+
+        task.publications.splice(index, 1);
+
+        // Modal'ı yeniden render et
+        const madde = State.criteriaData.kriterler.find(m => m.madde_no === this.currentMaddeNo);
+        if (madde) this.renderBody(madde);
+
+        this.afterUpdate();
+    },
+
+    calculateSinglePublicationPoints(task, pub) {
+        if (!task.puanHesaplama) return task.points;
+
+        const ph = task.puanHesaplama;
+
+        switch (pub.type) {
+            case 'tek_yazar': return ph.tek_yazar || task.points;
+            case 'iki_yazar_baslica': return ph.iki_yazar_baslica || task.points * 0.8;
+            case 'iki_yazar_ikinci': return ph.iki_yazar_ikinci || task.points * 0.5;
+            case 'cok_yazar_baslica': return ph.cok_yazar_baslica || task.points * 0.5;
+            case 'cok_yazar_diger':
+                // Kalan puan / yazar sayısı
+                const baslicaPuan = ph.cok_yazar_baslica || task.points * 0.5;
+                const kalanPuan = task.points - baslicaPuan;
+                return kalanPuan / (pub.authorCount || 3);
+            default: return task.points;
+        }
+    },
+
+    calculateTaskPoints(task) {
+        if (task.publications && task.publications.length > 0) {
+            return task.publications.reduce((sum, pub) => sum + this.calculateSinglePublicationPoints(task, pub), 0);
+        }
+        return task.checkbox ? (task.checked ? task.points : 0) : task.count * task.points;
+    },
+
     calculateCategoryPoints(maddeNo) {
         let total = 0;
         State.tasks.filter(t => t.maddeNo === maddeNo).forEach(task => {
-            total += task.checkbox ? (task.checked ? task.points : 0) : task.count * task.points;
+            total += this.calculateTaskPoints(task);
         });
         return total;
     },

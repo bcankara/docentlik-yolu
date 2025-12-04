@@ -319,8 +319,8 @@ MIT License - Kişisel kullanım için özgürce kullanabilirsiniz.
 Bu kişisel bir proje olarak geliştirilmiştir. Fork edip kendi ihtiyaçlarınıza göre özelleştirebilirsiniz.
 
 ### Önerilen Geliştirmeler
-- [ ] Detaylı ÜAK kural kontrolü (başlıca yazar, minimum puan)
-- [ ] Co-authorship puan hesaplama
+- [x] Detaylı ÜAK kural kontrolü (başlıca yazar, minimum puan)
+- [x] Co-authorship puan hesaplama (yazar sayısına göre dinamik puan)
 - [ ] Import/Export özelliği
 - [ ] Multi-user support
 - [ ] Email bildirimleri

@@ -6,9 +6,8 @@ const API = {
     baseUrl: 'api.php',
 
     async request(action, data = null, method = 'GET') {
-        const url = method === 'GET' && !data
-            ? `${this.baseUrl}?action=${action}`
-            : this.baseUrl + (method === 'GET' ? `?action=${action}` : '');
+        // Action her zaman URL'de olmalı
+        const url = `${this.baseUrl}?action=${action}`;
 
         const options = {
             method: method,
@@ -16,7 +15,7 @@ const API = {
         };
 
         if (data && method === 'POST') {
-            options.body = JSON.stringify({ ...data, action });
+            options.body = JSON.stringify(data);
         }
 
         try {
@@ -52,7 +51,8 @@ const API = {
 
     // Criteria
     async getCriteria(area = null) {
-        const url = area ? `${this.baseUrl}?action=get_criteria&area=${area}` : `${this.baseUrl}?action=get_criteria`;
+        const validArea = area || 'muhendislik';
+        const url = `${this.baseUrl}?action=get_criteria&area=${validArea}`;
         const response = await fetch(url);
         return response.json();
     },

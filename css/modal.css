@@ -413,3 +413,140 @@
     text-align: center;
     color: var(--neon-green);
 }
+/* ========================================
+   YAZAR BAZLI YAYIN SİSTEMİ
+   ======================================== */
+
+.author-task {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.task-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.task-total-points {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    color: var(--neon-green);
+    font-weight: 700;
+}
+
+.pub-count {
+    color: var(--neon-purple);
+    font-weight: 600;
+}
+
+.publications-list {
+    margin: 12px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+}
+
+.publication-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    border-left: 3px solid var(--neon-green);
+}
+
+.pub-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.pub-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    color: var(--neon-blue);
+    background: rgba(0, 240, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.pub-details {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.pub-remove {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--danger);
+    background: transparent;
+    color: var(--danger);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.pub-remove:hover {
+    background: var(--danger);
+    color: white;
+}
+
+.add-publication-form {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.pub-form-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.author-select {
+    flex: 1;
+    min-width: 100px;
+    padding: 8px 12px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.author-select:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+}
+
+.add-pub-btn {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-pub-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+    .pub-form-row {
+        flex-direction: column;
+    }
+    .author-select, .add-pub-btn {
+        width: 100%;
+    }
+}

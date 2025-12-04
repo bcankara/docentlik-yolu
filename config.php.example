@@ -1,17 +1,19 @@
 <?php
 /**
- * CONFIGURATION FILE EXAMPLE
+ * Doçentlik Yolu - Konfigürasyon
+ * Bu dosyayı config.php olarak kopyalayın ve ayarlarınızı yapın
  * 
- * Copy this file to config.php and update with your credentials
+ * cp config.php.example config.php
  */
 
-// Admin credentials
+// Kullanıcı bilgileri - MUTLAKA DEĞİŞTİRİN!
 define('ADMIN_USERNAME', 'admin');
-define('ADMIN_PASSWORD', 'your_secure_password_here'); // Change this!
+define('ADMIN_PASSWORD', 'guclu_sifreniz'); // Güçlü bir şifre belirleyin!
 
-// Session timeout (in seconds)
-define('SESSION_TIMEOUT', 3600); // 1 hour
+// Oturum süresi (saniye) - 7 gün
+define('SESSION_DURATION', 7 * 24 * 60 * 60);
+define('SESSION_TIMEOUT', 7 * 24 * 60 * 60);
 
-// Directory paths
+// Veri dizinleri
 define('DATA_DIR', __DIR__ . '/data');
-define('CRITERIA_DIR', __DIR__ . '/kriterler');
+define('KRITERLER_DIR', __DIR__ . '/kriterler');

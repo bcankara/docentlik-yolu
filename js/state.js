@@ -46,16 +46,22 @@ const State = {
 
         this.criteriaData.kriterler.forEach(madde => {
             madde.alt_kategoriler.forEach(kriter => {
+                // Yazar sayısına göre puan hesaplama varsa
+                const hasPuanHesaplama = kriter.puan_hesaplama && kriter.puan_hesaplama.tek_yazar;
+
                 this.tasks.push({
                     id: kriter.kriter_kodu,
                     name: kriter.kriter_adi,
                     points: kriter.puan,
+                    puanHesaplama: kriter.puan_hesaplama || null,
                     maddeNo: madde.madde_no,
                     postDoc: madde.doktora_sonrasi_mi,
                     maxPoints: madde.maksimum_puan,
                     checkbox: kriter.puan >= 20 && !kriter.kriter_adi.includes('Makale'),
                     count: 0,
-                    checked: false
+                    checked: false,
+                    // Yazar bazlı sistem için yayın listesi
+                    publications: hasPuanHesaplama ? [] : null
                 });
             });
         });
@@ -71,7 +77,14 @@ const State = {
 
         this.tasks.forEach(task => {
             let taskPoints = 0;
-            if (task.checkbox) {
+
+            // Yayın listesi varsa (yazar bazlı sistem)
+            if (task.publications && task.publications.length > 0) {
+                task.publications.forEach(pub => {
+                    taskPoints += this.calculatePublicationPoints(task, pub);
+                });
+                completed++;
+            } else if (task.checkbox) {
                 if (task.checked) { taskPoints = task.points; completed++; }
             } else {
                 taskPoints = task.count * task.points;
@@ -97,6 +110,25 @@ const State = {
 
         this.checkRequirements();
         this.checkAchievements();
+    },
+
+    // Tek bir yayın için puan hesapla
+    calculatePublicationPoints(task, pub) {
+        if (!task.puanHesaplama) return task.points;
+
+        const ph = task.puanHesaplama;
+
+        switch (pub.type) {
+            case 'tek_yazar': return ph.tek_yazar || task.points;
+            case 'iki_yazar_baslica': return ph.iki_yazar_baslica || task.points * 0.8;
+            case 'iki_yazar_ikinci': return ph.iki_yazar_ikinci || task.points * 0.5;
+            case 'cok_yazar_baslica': return ph.cok_yazar_baslica || task.points * 0.5;
+            case 'cok_yazar_diger':
+                const baslicaPuan = ph.cok_yazar_baslica || task.points * 0.5;
+                const kalanPuan = task.points - baslicaPuan;
+                return kalanPuan / (pub.authorCount || 3);
+            default: return task.points;
+        }
     },
 
     checkRequirements() {
@@ -130,6 +162,10 @@ const State = {
                 if (task) {
                     task.count = savedTask.count || 0;
                     task.checked = savedTask.checked || false;
+                    // Publications varsa yükle
+                    if (savedTask.publications && task.publications !== null) {
+                        task.publications = savedTask.publications;
+                    }
                 }
             });
         }
@@ -140,7 +176,12 @@ const State = {
     // Kayıt için veri hazırla
     getDataForSave() {
         return {
-            tasks: this.tasks.map(t => ({ id: t.id, count: t.count, checked: t.checked })),
+            tasks: this.tasks.map(t => ({
+                id: t.id,
+                count: t.count,
+                checked: t.checked,
+                publications: t.publications || null
+            })),
             achievements: this.unlockedAchievements,
             total_points: this.totalPoints,
             post_doc_points: this.postDocPoints
