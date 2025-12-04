@@ -8,6 +8,7 @@ const Auth = {
         this.loginForm = document.getElementById('login-form');
         this.loginError = document.getElementById('login-error');
         this.visitorBadge = document.getElementById('visitor-badge');
+        this.viewOnlyBadge = document.getElementById('view-only-badge');
         this.logoutBtn = document.getElementById('btn-logout');
 
         this.bindEvents();
@@ -25,7 +26,7 @@ const Auth = {
             State.isLoggedIn = result.logged_in;
             State.selectedArea = result.selected_area || 'muhendislik';
 
-            if (!State.isLoggedIn && !State.isVisitorMode) {
+            if (!State.isLoggedIn && !State.isVisitorMode && !State.isViewOnlyMode) {
                 this.showLogin();
             } else {
                 this.hideLogin();
@@ -48,6 +49,8 @@ const Auth = {
         if (result.success) {
             State.isLoggedIn = true;
             State.isVisitorMode = false;
+            State.isViewOnlyMode = false;
+            document.body.classList.remove('view-only-mode');
             this.hideLogin();
             this.updateUI();
             App.loadData();
@@ -58,16 +61,29 @@ const Auth = {
 
     async logout() {
         await API.logout();
-        // Sayfayı yenile - session cookie'sinin temizlenmesini garanti eder
         window.location.reload();
     },
 
     enterVisitorMode() {
         State.isVisitorMode = true;
+        State.isViewOnlyMode = false;
         State.isLoggedIn = false;
+        document.body.classList.remove('view-only-mode');
         this.hideLogin();
         this.updateUI();
         App.loadData();
+    },
+
+    async enterViewOnlyMode() {
+        State.isViewOnlyMode = true;
+        State.isVisitorMode = false;
+        State.isLoggedIn = false;
+        document.body.classList.add('view-only-mode');
+        this.hideLogin();
+        this.updateUI();
+
+        // Admin'in kayıtlı verisini yükle
+        await App.loadData(true); // viewOnly = true
     },
 
     showLogin() {
@@ -88,16 +104,27 @@ const Auth = {
             this.visitorBadge.style.display = State.isVisitorMode ? 'inline-block' : 'none';
         }
 
-        // Logout button text
+        // View-only badge
+        if (this.viewOnlyBadge) {
+            this.viewOnlyBadge.style.display = State.isViewOnlyMode ? 'inline-block' : 'none';
+        }
+
+        // Logout button
         if (this.logoutBtn) {
-            this.logoutBtn.textContent = State.isVisitorMode ? '🔐 Giriş Yap' : '🚪 Çıkış';
-            this.logoutBtn.onclick = State.isVisitorMode ? () => this.showLogin() : () => this.logout();
+            if (State.isVisitorMode || State.isViewOnlyMode) {
+                this.logoutBtn.textContent = '🔐 Giriş Yap';
+                this.logoutBtn.onclick = () => this.showLogin();
+            } else {
+                this.logoutBtn.textContent = '🚪 Çıkış';
+                this.logoutBtn.onclick = () => this.logout();
+            }
         }
     }
 };
 
 // Global fonksiyonlar
 window.enterVisitorMode = () => Auth.enterVisitorMode();
+window.enterViewOnlyMode = () => Auth.enterViewOnlyMode();
 window.logout = () => Auth.logout();
 
 window.Auth = Auth;

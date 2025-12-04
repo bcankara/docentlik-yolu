@@ -42,6 +42,11 @@
 - **🎊 Konfeti**: Önemli milestone'larda konfeti patlaması
 - **🏆 Başarımlar**: İlerlemenize göre kilitlenen achievement'lar
 
+### 🆕 Yeni Özellikler (v2.0)
+- **👀 Sadece Görüntüleme Modu**: Ziyaretçiler admin'in ilerlemesini CV formatında inceleyebilir (düzenleme yapılamaz)
+- **✍️ Yazar Bazlı Puanlama**: Makaleler için yazar sayısı ve sırasına göre (Başlıca/İkinci/Diğer) otomatik puan hesaplama
+- **🔧 Demo Modu**: "Sistemi Kurcala" seçeneği ile veriler kaydedilmeden sistemi test etme imkanı
+
 ---
 
 ## 🛠️ Kurulum

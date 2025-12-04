@@ -24,7 +24,7 @@ const App = {
         await this.loadAreas();
 
         // İlk alan seçimi
-        if (State.areas.length > 0 && !State.isLoggedIn && !State.isVisitorMode) {
+        if (State.areas.length > 0 && !State.isLoggedIn && !State.isVisitorMode && !State.isViewOnlyMode) {
             // Login bekle
         } else {
             await this.loadData();
@@ -39,7 +39,7 @@ const App = {
         }
     },
 
-    async loadData() {
+    async loadData(viewOnly = false) {
         // Kriterleri yükle
         const criteriaResult = await API.getCriteria(State.selectedArea);
         if (criteriaResult.success) {
@@ -50,9 +50,12 @@ const App = {
         }
 
         // İlerlemeyi yükle
-        const progressResult = await API.getProgress();
-        if (progressResult.success) {
-            State.loadSavedData(progressResult.data);
+        const shouldLoadProgress = viewOnly || State.isLoggedIn || State.isViewOnlyMode;
+        if (shouldLoadProgress) {
+            const progressResult = await API.getProgress(viewOnly || State.isViewOnlyMode);
+            if (progressResult.success) {
+                State.loadSavedData(progressResult.data);
+            }
         }
 
         UI.updateAll();
@@ -60,11 +63,11 @@ const App = {
     },
 
     async selectArea(areaId) {
-        // Ziyaretçi modunda API çağırmadan lokal olarak değiştir
-        if (State.isVisitorMode) {
+        // Ziyaretçi veya view-only modunda API çağırmadan lokal olarak değiştir
+        if (State.isVisitorMode || State.isViewOnlyMode) {
             State.selectedArea = areaId;
             UI.hideAreaSelection();
-            await this.loadData();
+            await this.loadData(State.isViewOnlyMode);
         } else {
             // Login modunda backend'e kaydet
             const result = await API.selectArea(areaId);
@@ -77,7 +80,8 @@ const App = {
     },
 
     async save() {
-        if (State.isVisitorMode) return;
+        // View-only veya visitor modunda kaydetme
+        if (State.isVisitorMode || State.isViewOnlyMode) return;
 
         const result = await API.saveProgress(State.getDataForSave());
         if (result.success) {
@@ -86,6 +90,9 @@ const App = {
     },
 
     async reset() {
+        // View-only modda sıfırlama yok
+        if (State.isViewOnlyMode) return;
+
         if (!confirm('Tüm ilerleme sıfırlanacak. Emin misiniz?')) return;
 
         if (!State.isVisitorMode) {

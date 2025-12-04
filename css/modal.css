@@ -550,3 +550,236 @@
         width: 100%;
     }
 }
+
+/* ========================================
+   SADECE GÖRÜNTÜLEME MODU
+   ======================================== */
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.login-divider::before,
+.login-divider::after {
+    content: '';
+    flex: 1;
+    border-top: 1px dashed var(--border-color);
+}
+
+.login-divider span {
+    padding: 0 15px;
+}
+
+.btn-view-only {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(170, 0, 255, 0.1));
+    border: 2px solid var(--neon-purple);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 15px;
+}
+
+.btn-view-only:hover {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(170, 0, 255, 0.2));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(170, 0, 255, 0.3);
+}
+
+.btn-view-only .btn-icon {
+    font-size: 1.8rem;
+}
+
+.btn-view-only .btn-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    color: var(--neon-purple);
+    font-weight: 700;
+}
+
+.btn-view-only .btn-desc {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.view-only-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: linear-gradient(135deg, rgba(170, 0, 255, 0.2), rgba(0, 240, 255, 0.2));
+    border: 1px solid var(--neon-purple);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--neon-purple);
+    margin-top: 8px;
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* View-only modda düzenleme engelleme */
+body.view-only-mode .task-checkbox,
+body.view-only-mode .counter-btn,
+body.view-only-mode .add-pub-btn,
+body.view-only-mode .pub-remove,
+body.view-only-mode .author-select,
+body.view-only-mode .reset-btn {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+body.view-only-mode .add-publication-form {
+    display: none;
+}
+
+body.view-only-mode .task-item:hover {
+    cursor: default;
+}
+
+.view-only-notice {
+    background: linear-gradient(135deg, rgba(170, 0, 255, 0.1), rgba(0, 240, 255, 0.1));
+    border: 1px solid var(--neon-purple);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--neon-purple);
+}
+
+.view-only-notice .notice-icon {
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+/* ========================================
+   CV TARZI GÖRÜNÜM (View-only mod)
+   ======================================== */
+
+.cv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(170, 0, 255, 0.1));
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+}
+
+.cv-category-points {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.cv-points-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--neon-green);
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.cv-points-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.cv-max-info {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.cv-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cv-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: rgba(0, 255, 136, 0.05);
+    border-left: 3px solid var(--neon-green);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    transition: all 0.2s;
+}
+
+.cv-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+    transform: translateX(5px);
+}
+
+.cv-item-info {
+    flex: 1;
+}
+
+.cv-item-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.cv-item-details {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.cv-item-points {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--neon-green);
+    background: rgba(0, 255, 136, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.cv-empty {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--border-color);
+}
+
+.cv-requirement {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 14px 16px;
+    background: rgba(255, 170, 0, 0.08);
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: var(--radius-md);
+}
+
+.cv-req-icon {
+    font-size: 1.2rem;
+}
+
+.cv-req-text {
+    font-size: 0.85rem;
+    color: var(--warning);
+    line-height: 1.5;
+}

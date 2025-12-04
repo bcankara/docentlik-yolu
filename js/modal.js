@@ -43,6 +43,12 @@ const Modal = {
         let categoryPoints = this.calculateCategoryPoints(madde.madde_no);
         if (madde.maksimum_puan) categoryPoints = Math.min(categoryPoints, madde.maksimum_puan);
 
+        // VIEW-ONLY MODDA CV TARZI GÖRÜNÜM
+        if (State.isViewOnlyMode) {
+            body.innerHTML = this.renderCVView(madde, categoryPoints);
+            return;
+        }
+
         let html = `
             <div class="modal-points-display">
                 <div class="modal-points-label">Bu Kategoriden Puan</div>
@@ -105,6 +111,85 @@ const Modal = {
         }
 
         body.innerHTML = html;
+    },
+
+    // CV TARZI GÖRÜNÜM (View-only mod için)
+    renderCVView(madde, categoryPoints) {
+        let html = `
+            <div class="cv-header">
+                <div class="cv-category-points">
+                    <span class="cv-points-value">${Math.round(categoryPoints * 10) / 10}</span>
+                    <span class="cv-points-label">puan</span>
+                </div>
+                ${madde.maksimum_puan ? `<div class="cv-max-info">Maks: ${madde.maksimum_puan}p</div>` : ''}
+            </div>
+            
+            <div class="cv-items">
+        `;
+
+        let hasItems = false;
+
+        madde.alt_kategoriler.forEach(kriter => {
+            const task = State.tasks.find(t => t.id === kriter.kriter_kodu);
+            if (!task) return;
+
+            let itemPoints = 0;
+            let itemCount = 0;
+            let itemDetails = '';
+
+            // Yayın bazlı
+            if (task.publications && task.publications.length > 0) {
+                task.publications.forEach(pub => {
+                    itemPoints += this.calculateSinglePublicationPoints(task, pub);
+                });
+                itemCount = task.publications.length;
+                itemDetails = task.publications.map(pub => this.getAuthorTypeLabel(pub)).join(', ');
+            }
+            // Checkbox
+            else if (task.checkbox && task.checked) {
+                itemPoints = task.points;
+                itemCount = 1;
+                itemDetails = 'Tamamlandı';
+            }
+            // Sayaç
+            else if (task.count > 0) {
+                itemPoints = task.count * task.points;
+                itemCount = task.count;
+                itemDetails = `${task.count} adet`;
+            }
+
+            // Sadece puanı olanları göster
+            if (itemPoints > 0) {
+                hasItems = true;
+                html += `
+                    <div class="cv-item">
+                        <div class="cv-item-info">
+                            <div class="cv-item-name">${kriter.kriter_adi}</div>
+                            <div class="cv-item-details">${itemDetails}</div>
+                        </div>
+                        <div class="cv-item-points">+${Math.round(itemPoints * 10) / 10}p</div>
+                    </div>
+                `;
+            }
+        });
+
+        if (!hasItems) {
+            html += `<div class="cv-empty">Bu kategoride henüz kayıt yok</div>`;
+        }
+
+        html += `</div>`;
+
+        // Zorunlu şart
+        if (madde.madde_ozel_sart) {
+            html += `
+                <div class="cv-requirement">
+                    <span class="cv-req-icon">⚠️</span>
+                    <span class="cv-req-text">${madde.madde_ozel_sart.aciklama}</span>
+                </div>
+            `;
+        }
+
+        return html;
     },
 
     // Yazar bazlı puan hesaplama için task render

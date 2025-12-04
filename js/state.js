@@ -6,6 +6,7 @@ const State = {
     // Kullanıcı durumu
     isLoggedIn: false,
     isVisitorMode: false,
+    isViewOnlyMode: false,
     selectedArea: 'muhendislik',
 
     // Veri

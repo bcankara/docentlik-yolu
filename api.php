@@ -143,8 +143,10 @@ switch ($action) {
         break;
 
     case 'get_progress':
-        // Ziyaretçi modunda progress yok
-        if (!isLoggedIn()) {
+        // view_only parametresi varsa admin verisini döndür
+        $viewOnly = isset($_GET['view_only']) && $_GET['view_only'] === 'true';
+        
+        if (!isLoggedIn() && !$viewOnly) {
             echo json_encode([
                 'success' => true, 
                 'data' => [
@@ -163,6 +165,7 @@ switch ($action) {
         
         $data = json_decode(file_get_contents($dataFile), true);
         $data['visitor_mode'] = false;
+        $data['view_only'] = $viewOnly;
         echo json_encode(['success' => true, 'data' => $data], JSON_UNESCAPED_UNICODE);
         break;
 

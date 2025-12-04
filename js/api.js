@@ -58,8 +58,12 @@ const API = {
     },
 
     // Progress
-    async getProgress() {
-        return this.request('get_progress');
+    async getProgress(viewOnly = false) {
+        const url = viewOnly
+            ? `${this.baseUrl}?action=get_progress&view_only=true`
+            : `${this.baseUrl}?action=get_progress`;
+        const response = await fetch(url);
+        return response.json();
     },
 
     async saveProgress(data) {
