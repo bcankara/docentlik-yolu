@@ -1,9 +1,23 @@
 const CACHE_NAME = 'docentlik-yolu-v1';
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/manifest.json',
-    '/api.php?action=get_areas'
+    './',
+    './index.html',
+    './manifest.json',
+    './css/base.css',
+    './css/components.css',
+    './css/modal.css',
+    './css/animations.css',
+    './css/mobile.css',
+    './css/progress-effects.css',
+    './js/state.js',
+    './js/api.js',
+    './js/auth.js',
+    './js/ui.js',
+    './js/modal.js',
+    './js/effects.js',
+    './js/app.js',
+    './icons/icon-192.png',
+    './icons/icon-512.png'
 ];
 
 // Install - cache assets

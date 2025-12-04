@@ -65,6 +65,8 @@ const Auth = {
     },
 
     enterVisitorMode() {
+        State.reset();
+        State.tasks = []; // Agresif sıfırlama - eski verilerin kalmadığından emin ol
         State.isVisitorMode = true;
         State.isViewOnlyMode = false;
         State.isLoggedIn = false;
@@ -75,6 +77,7 @@ const Auth = {
     },
 
     async enterViewOnlyMode() {
+        State.reset();
         State.isViewOnlyMode = true;
         State.isVisitorMode = false;
         State.isLoggedIn = false;
@@ -111,11 +114,23 @@ const Auth = {
 
         // Logout button
         if (this.logoutBtn) {
-            if (State.isVisitorMode || State.isViewOnlyMode) {
-                this.logoutBtn.textContent = '🔐 Giriş Yap';
-                this.logoutBtn.onclick = () => this.showLogin();
+            if (State.isVisitorMode) {
+                this.logoutBtn.innerHTML = '🚪 Çıkış';
+                this.logoutBtn.className = 'btn-logout';
+                this.logoutBtn.onclick = () => {
+                    State.reset();
+                    window.location.reload();
+                };
+            } else if (State.isViewOnlyMode) {
+                this.logoutBtn.innerHTML = '👁️‍🗨️ Gözetlemekten Çık';
+                this.logoutBtn.className = 'btn-logout btn-view-exit';
+                this.logoutBtn.onclick = () => {
+                    State.reset();
+                    window.location.reload();
+                };
             } else {
-                this.logoutBtn.textContent = '🚪 Çıkış';
+                this.logoutBtn.innerHTML = '🚪 Çıkış';
+                this.logoutBtn.className = 'btn-logout';
                 this.logoutBtn.onclick = () => this.logout();
             }
         }

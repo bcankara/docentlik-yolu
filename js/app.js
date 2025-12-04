@@ -114,12 +114,22 @@ const App = {
             });
         }
 
-        // Install prompt
+        // Install prompt (Android/Chrome)
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             this.deferredPrompt = e;
             document.getElementById('install-prompt').style.display = 'flex';
         });
+
+        // iOS Detection
+        const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+
+        if (isIos && !isInStandaloneMode) {
+            // iOS için özel bir bildirim veya ipucu gösterilebilir
+            // Şimdilik sadece konsola yazalım, kullanıcı arayüzünü karıştırmayalım
+            console.log('iOS PWA: Ana ekrana eklemek için Paylaş > Ana Ekrana Ekle');
+        }
     },
 
     async installPWA() {

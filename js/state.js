@@ -157,6 +157,14 @@ const State = {
 
     // Kayıtlı veriyi yükle
     loadSavedData(data) {
+        // Önce her şeyi sıfırla
+        this.tasks.forEach(task => {
+            task.count = 0;
+            task.checked = false;
+            task.publications = task.puanHesaplama ? [] : null;
+        });
+
+        // Sonra gelen veriyi yükle
         if (data.tasks && data.tasks.length > 0) {
             data.tasks.forEach(savedTask => {
                 const task = this.tasks.find(t => t.id === savedTask.id);
@@ -171,6 +179,21 @@ const State = {
             });
         }
         this.unlockedAchievements = data.achievements || [];
+        this.calculatePoints();
+    },
+
+    // Sıfırla
+    reset() {
+        this.tasks.forEach(task => {
+            task.count = 0;
+            task.checked = false;
+            task.publications = task.puanHesaplama ? [] : null;
+        });
+        this.totalPoints = 0;
+        this.postDocPoints = 0;
+        this.completedTasks = 0;
+        this.allRequirementsMet = false;
+        this.unlockedAchievements = [];
         this.calculatePoints();
     },
 

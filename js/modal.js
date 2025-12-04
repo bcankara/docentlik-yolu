@@ -116,15 +116,15 @@ const Modal = {
     // CV TARZI GÖRÜNÜM (View-only mod için)
     renderCVView(madde, categoryPoints) {
         let html = `
-            <div class="cv-header">
-                <div class="cv-category-points">
-                    <span class="cv-points-value">${Math.round(categoryPoints * 10) / 10}</span>
-                    <span class="cv-points-label">puan</span>
+            <div class="cv-header" style="background: rgba(255,255,255,0.05); border-bottom: 2px solid var(--neon-blue); padding: 15px; margin-bottom: 20px;">
+                <h3 style="margin:0; font-family: 'Orbitron', sans-serif; color: var(--neon-blue); font-size: 1.2rem;">${madde.kategori}</h3>
+                <div class="cv-category-points" style="margin-top: 10px;">
+                    <span class="cv-points-value" style="font-size: 1.8rem;">${Math.round(categoryPoints * 10) / 10}</span>
+                    <span class="cv-points-label">/ ${madde.maksimum_puan || '∞'} puan</span>
                 </div>
-                ${madde.maksimum_puan ? `<div class="cv-max-info">Maks: ${madde.maksimum_puan}p</div>` : ''}
             </div>
             
-            <div class="cv-items">
+            <div class="cv-items" style="display: flex; flex-direction: column; gap: 15px;">
         `;
 
         let hasItems = false;
@@ -134,60 +134,61 @@ const Modal = {
             if (!task) return;
 
             let itemPoints = 0;
-            let itemCount = 0;
-            let itemDetails = '';
+            let items = [];
 
             // Yayın bazlı
             if (task.publications && task.publications.length > 0) {
-                task.publications.forEach(pub => {
-                    itemPoints += this.calculateSinglePublicationPoints(task, pub);
+                task.publications.forEach((pub, idx) => {
+                    const p = this.calculateSinglePublicationPoints(task, pub);
+                    itemPoints += p;
+                    items.push({
+                        detail: `Yayın #${idx + 1} (${this.getAuthorTypeLabel(pub)})`,
+                        point: p
+                    });
                 });
-                itemCount = task.publications.length;
-                itemDetails = task.publications.map(pub => this.getAuthorTypeLabel(pub)).join(', ');
             }
             // Checkbox
             else if (task.checkbox && task.checked) {
                 itemPoints = task.points;
-                itemCount = 1;
-                itemDetails = 'Tamamlandı';
+                items.push({ detail: 'Tamamlandı', point: task.points });
             }
             // Sayaç
             else if (task.count > 0) {
                 itemPoints = task.count * task.points;
-                itemCount = task.count;
-                itemDetails = `${task.count} adet`;
+                items.push({ detail: `${task.count} adet x ${task.points}p`, point: itemPoints });
             }
 
             // Sadece puanı olanları göster
             if (itemPoints > 0) {
                 hasItems = true;
                 html += `
-                    <div class="cv-item">
-                        <div class="cv-item-info">
-                            <div class="cv-item-name">${kriter.kriter_adi}</div>
-                            <div class="cv-item-details">${itemDetails}</div>
+                    <div class="cv-item" style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border-left: 4px solid var(--neon-green);">
+                        <div style="font-weight: bold; color: var(--text-primary); margin-bottom: 8px;">${kriter.kriter_adi}</div>
+                        <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                            ${items.map(i => `
+                                <div style="display: flex; justify-content: space-between; margin-top: 4px; padding-top: 4px; border-top: 1px dashed rgba(255,255,255,0.1);">
+                                    <span>${i.detail}</span>
+                                    <span style="color: var(--neon-green); font-weight: bold;">+${Math.round(i.point * 10) / 10}</span>
+                                </div>
+                            `).join('')}
                         </div>
-                        <div class="cv-item-points">+${Math.round(itemPoints * 10) / 10}p</div>
+                        <div style="margin-top: 8px; text-align: right; font-size: 0.8rem; color: var(--neon-blue);">
+                            Toplam: ${Math.round(itemPoints * 10) / 10} puan
+                        </div>
                     </div>
                 `;
             }
         });
 
         if (!hasItems) {
-            html += `<div class="cv-empty">Bu kategoride henüz kayıt yok</div>`;
-        }
-
-        html += `</div>`;
-
-        // Zorunlu şart
-        if (madde.madde_ozel_sart) {
             html += `
-                <div class="cv-requirement">
-                    <span class="cv-req-icon">⚠️</span>
-                    <span class="cv-req-text">${madde.madde_ozel_sart.aciklama}</span>
+                <div class="cv-empty" style="text-align: center; padding: 40px; color: var(--text-secondary); font-style: italic;">
+                    Bu kategoride henüz herhangi bir faaliyet girişi yapılmamıştır.
                 </div>
             `;
         }
+
+        html += `</div>`;
 
         return html;
     },

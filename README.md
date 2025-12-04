@@ -56,18 +56,6 @@
 - Bir web sunucusu (Apache, Nginx, veya PHP built-in server)
 - Modern web tarayıcı (Chrome, Firefox, Safari, Edge)
 
-### Adım 1: Projeyi İndirin
-```bash
-git clone https://github.com/bcankara/docentlik-yolu.git
-cd docentlik-yolu
-```
-
-### Adım 2: Konfigürasyon
-1. `config.php.example` dosyasını `config.php` olarak kopyalayın:
-   ```bash
-   cp config.php.example config.php
-   ```
-
 2. `config.php` dosyasını düzenleyin ve admin şifrenizi ayarlayın:
    ```php
    define('ADMIN_USERNAME', 'admin');
