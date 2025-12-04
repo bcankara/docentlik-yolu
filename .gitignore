@@ -1,0 +1,21 @@
+# User Data
+data/user_progress*.json
+
+# Config (contains sensitive info)
+config.php
+
+# Development
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Backup files
+*.bak
+*.backup
+*~

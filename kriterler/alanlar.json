@@ -1,0 +1,18 @@
+{
+    "alanlar": [
+        {
+            "id": "muhendislik",
+            "adi": "Mühendislik Temel Alanı",
+            "dosya": "muhendislik.json",
+            "icon": "🔧",
+            "renk": "#00f0ff"
+        },
+        {
+            "id": "sosyal-bilimler",
+            "adi": "Sosyal, Beşeri ve İdari Bilimler",
+            "dosya": "sosyal-bilimler.json",
+            "icon": "📊",
+            "renk": "#ff00aa"
+        }
+    ]
+}

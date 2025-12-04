@@ -1,0 +1,297 @@
+/* ========================================
+   MOBILE.CSS - Mobil Responsive Stiller
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .quest-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: var(--space-sm);
+        padding-bottom: 80px;
+    }
+
+    .header {
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .header h1 {
+        font-size: 0.9rem;
+    }
+
+    .subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+
+    .header-top {
+        flex-direction: row;
+        gap: var(--space-sm);
+    }
+
+    .btn-area-change,
+    .btn-logout {
+        padding: 6px 10px;
+        font-size: 0.7rem;
+    }
+
+    /* Stats - 2x2 grid */
+    .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: var(--space-sm);
+    }
+
+    .stat-label {
+        font-size: 0.55rem;
+    }
+
+    .stat-value {
+        font-size: 1.4rem;
+    }
+
+    /* Progress */
+    .main-progress {
+        padding: var(--space-sm);
+    }
+
+    .progress-title {
+        font-size: 0.75rem;
+    }
+
+    .progress-percent {
+        font-size: 0.85rem;
+    }
+
+    .progress-bar-container {
+        height: 20px;
+    }
+
+    /* Requirements */
+    .requirements-alert {
+        padding: var(--space-sm);
+    }
+
+    .requirements-alert h3 {
+        font-size: 0.75rem;
+    }
+
+    .req-list {
+        grid-template-columns: 1fr;
+    }
+
+    .req-item {
+        padding: 6px;
+        font-size: 0.7rem;
+    }
+
+    /* Quest cards - full width */
+    .quest-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+    }
+
+    .quest-header {
+        padding: var(--space-sm);
+    }
+
+    .quest-icon {
+        font-size: 1.5rem;
+    }
+
+    .quest-title {
+        font-size: 0.8rem;
+    }
+
+    .quest-subtitle {
+        font-size: 0.65rem;
+    }
+
+    .quest-current {
+        font-size: 1.1rem;
+    }
+
+    /* Achievements */
+    .achievements-section {
+        padding: var(--space-sm);
+    }
+
+    .achievements-title {
+        font-size: 0.7rem;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .achievement {
+        padding: var(--space-sm);
+    }
+
+    .achievement-icon {
+        font-size: 1.5rem;
+    }
+
+    .achievement-name {
+        font-size: 0.55rem;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+        border-radius: var(--radius-md);
+    }
+
+    .modal-header {
+        padding: var(--space-sm);
+    }
+
+    .modal-icon {
+        font-size: 1.5rem;
+    }
+
+    .modal-title {
+        font-size: 0.9rem;
+    }
+
+    .modal-body {
+        padding: var(--space-sm);
+    }
+
+    .task-item {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .task-name {
+        font-size: 0.8rem;
+    }
+
+    .counter-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+
+    .counter-value {
+        font-size: 1rem;
+        min-width: 30px;
+    }
+
+    /* Login */
+    .login-box,
+    .area-box {
+        padding: var(--space-md);
+        width: 95%;
+    }
+
+    /* Save indicator */
+    .save-indicator {
+        bottom: 70px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 0.75rem;
+    }
+
+    /* Install prompt */
+    .install-prompt {
+        bottom: 10px;
+        width: 90%;
+        font-size: 0.75rem;
+        padding: 10px 15px;
+    }
+}
+
+/* Small phones */
+@media (max-width: 360px) {
+    .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal-content {
+        max-height: 95vh;
+    }
+
+    .login-box,
+    .area-box {
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+}
+
+/* Safe area for notched phones */
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(var(--space-sm), env(safe-area-inset-left));
+        padding-right: max(var(--space-sm), env(safe-area-inset-right));
+        padding-bottom: max(80px, env(safe-area-inset-bottom));
+    }
+
+    .install-prompt {
+        bottom: max(10px, env(safe-area-inset-bottom));
+    }
+}
+
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .quest-card:hover {
+        transform: none;
+    }
+
+    .counter-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .task-checkbox {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Dark mode preference (already dark, but just in case) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

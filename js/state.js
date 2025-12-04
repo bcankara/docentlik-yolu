@@ -1,0 +1,162 @@
+/**
+ * STATE.JS - Uygulama Durum Yönetimi
+ */
+
+const State = {
+    // Kullanıcı durumu
+    isLoggedIn: false,
+    isVisitorMode: false,
+    selectedArea: 'muhendislik',
+
+    // Veri
+    criteriaData: null,
+    areas: [],
+    tasks: [],
+    achievements: [],
+    unlockedAchievements: [],
+
+    // Hesaplanmış değerler
+    totalPoints: 0,
+    postDocPoints: 0,
+    completedTasks: 0,
+    allRequirementsMet: false,
+
+    // Başarımlar tanımı
+    achievementDefs: [
+        { id: 'first-step', name: 'İlk Adım', icon: '👣', condition: (s) => s.totalPoints >= 10 },
+        { id: 'quarter', name: '25 Puan', icon: '🌟', condition: (s) => s.totalPoints >= 25 },
+        { id: 'halfway', name: 'Yarı Yol', icon: '🚀', condition: (s) => s.totalPoints >= 50 },
+        { id: 'almost', name: 'Neredeyse', icon: '🔥', condition: (s) => s.totalPoints >= 90 },
+        { id: 'target', name: 'Hedef!', icon: '🎯', condition: (s) => s.totalPoints >= 100 },
+        { id: 'publisher', name: 'Yayıncı', icon: '📚', condition: (s) => s.completedTasks >= 5 },
+        { id: 'all-reqs', name: 'Tam Donanım', icon: '🛡️', condition: (s) => s.allRequirementsMet }
+    ],
+
+    // İkonlar
+    questIcons: {
+        '1': '📚', '2': '🇹🇷', '3': '🎓', '4': '📖', '5': '🔗',
+        '6': '👨‍🏫', '7': '🔬', '8': '🎤', '9': '🏫', '10': '💡',
+        '11': '🏆', '12': '✏️', '13': '⭐'
+    },
+
+    // Task'ları hazırla
+    initializeTasks() {
+        this.tasks = [];
+        if (!this.criteriaData || !this.criteriaData.kriterler) return;
+
+        this.criteriaData.kriterler.forEach(madde => {
+            madde.alt_kategoriler.forEach(kriter => {
+                this.tasks.push({
+                    id: kriter.kriter_kodu,
+                    name: kriter.kriter_adi,
+                    points: kriter.puan,
+                    maddeNo: madde.madde_no,
+                    postDoc: madde.doktora_sonrasi_mi,
+                    maxPoints: madde.maksimum_puan,
+                    checkbox: kriter.puan >= 20 && !kriter.kriter_adi.includes('Makale'),
+                    count: 0,
+                    checked: false
+                });
+            });
+        });
+    },
+
+    // Puanları hesapla
+    calculatePoints() {
+        let total = 0;
+        let postDoc = 0;
+        let completed = 0;
+
+        const maddePoints = {};
+
+        this.tasks.forEach(task => {
+            let taskPoints = 0;
+            if (task.checkbox) {
+                if (task.checked) { taskPoints = task.points; completed++; }
+            } else {
+                taskPoints = task.count * task.points;
+                if (task.count > 0) completed++;
+            }
+
+            if (!maddePoints[task.maddeNo]) {
+                maddePoints[task.maddeNo] = { total: 0, postDoc: task.postDoc, maxPoints: task.maxPoints };
+            }
+            maddePoints[task.maddeNo].total += taskPoints;
+        });
+
+        Object.keys(maddePoints).forEach(maddeNo => {
+            let mp = maddePoints[maddeNo];
+            let effectivePoints = mp.maxPoints ? Math.min(mp.total, mp.maxPoints) : mp.total;
+            total += effectivePoints;
+            if (mp.postDoc) postDoc += effectivePoints;
+        });
+
+        this.totalPoints = total;
+        this.postDocPoints = postDoc;
+        this.completedTasks = completed;
+
+        this.checkRequirements();
+        this.checkAchievements();
+    },
+
+    checkRequirements() {
+        this.allRequirementsMet = this.totalPoints >= 100 && this.postDocPoints >= 90;
+    },
+
+    checkAchievements() {
+        this.achievementDefs.forEach(ach => {
+            if (!this.unlockedAchievements.includes(ach.id) && ach.condition(this)) {
+                this.unlockedAchievements.push(ach.id);
+            }
+        });
+    },
+
+    // Task güncelle
+    updateTask(taskId, changes) {
+        const task = this.tasks.find(t => t.id === taskId);
+        if (task) {
+            Object.assign(task, changes);
+            this.calculatePoints();
+            return true;
+        }
+        return false;
+    },
+
+    // Kayıtlı veriyi yükle
+    loadSavedData(data) {
+        if (data.tasks && data.tasks.length > 0) {
+            data.tasks.forEach(savedTask => {
+                const task = this.tasks.find(t => t.id === savedTask.id);
+                if (task) {
+                    task.count = savedTask.count || 0;
+                    task.checked = savedTask.checked || false;
+                }
+            });
+        }
+        this.unlockedAchievements = data.achievements || [];
+        this.calculatePoints();
+    },
+
+    // Kayıt için veri hazırla
+    getDataForSave() {
+        return {
+            tasks: this.tasks.map(t => ({ id: t.id, count: t.count, checked: t.checked })),
+            achievements: this.unlockedAchievements,
+            total_points: this.totalPoints,
+            post_doc_points: this.postDocPoints
+        };
+    },
+
+    // Sıfırla
+    reset() {
+        this.tasks.forEach(task => {
+            task.count = 0;
+            task.checked = false;
+        });
+        this.unlockedAchievements = [];
+        this.calculatePoints();
+    }
+};
+
+// Global'e aktar
+window.State = State;

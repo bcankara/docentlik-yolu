@@ -1,0 +1,17 @@
+<?php
+/**
+ * CONFIGURATION FILE EXAMPLE
+ * 
+ * Copy this file to config.php and update with your credentials
+ */
+
+// Admin credentials
+define('ADMIN_USERNAME', 'admin');
+define('ADMIN_PASSWORD', 'your_secure_password_here'); // Change this!
+
+// Session timeout (in seconds)
+define('SESSION_TIMEOUT', 3600); // 1 hour
+
+// Directory paths
+define('DATA_DIR', __DIR__ . '/data');
+define('CRITERIA_DIR', __DIR__ . '/kriterler');

@@ -1,0 +1,696 @@
+{
+    "alan_adi": "Mühendislik Temel Alanı",
+    "alan_kodu": "TABLO_9",
+    "toplam_puan_gerekliligi": 100,
+    "doktora_sonrasi_minimum_puan": 90,
+    "kriterler": [
+        {
+            "madde_no": "1",
+            "kategori": "Uluslararası Makale",
+            "aciklama": "Adayın hazırladığı lisansüstü tezlerden üretilmemiş olmak kaydıyla",
+            "maksimum_puan": null,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "1a-q1",
+                    "kriter_adi": "SCIE/SSCI Q1 Makale",
+                    "puan": 30,
+                    "puan_hesaplama": {
+                        "tek_yazar": 30,
+                        "iki_yazar_baslica": 24,
+                        "iki_yazar_ikinci": 15,
+                        "cok_yazar_baslica": 15,
+                        "cok_yazar_diger": "kalan_puan / yazar_sayisi"
+                    },
+                    "aciklama": "Web of Science Journal Impact Factor Q1 dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "1a-q2",
+                    "kriter_adi": "SCIE/SSCI Q2 Makale",
+                    "puan": 20,
+                    "puan_hesaplama": {
+                        "tek_yazar": 20,
+                        "iki_yazar_baslica": 16,
+                        "iki_yazar_ikinci": 10,
+                        "cok_yazar_baslica": 10,
+                        "cok_yazar_diger": "kalan_puan / yazar_sayisi"
+                    },
+                    "aciklama": "Web of Science Journal Impact Factor Q2 dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "1a-q3",
+                    "kriter_adi": "SCIE/SSCI Q3 Makale",
+                    "puan": 15,
+                    "puan_hesaplama": {
+                        "tek_yazar": 15,
+                        "iki_yazar_baslica": 12,
+                        "iki_yazar_ikinci": 7.5,
+                        "cok_yazar_baslica": 7.5,
+                        "cok_yazar_diger": "kalan_puan / yazar_sayisi"
+                    },
+                    "aciklama": "Web of Science Journal Impact Factor Q3 dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "1a-q4",
+                    "kriter_adi": "SCIE/SSCI Q4 Makale",
+                    "puan": 10,
+                    "puan_hesaplama": {
+                        "tek_yazar": 10,
+                        "iki_yazar_baslica": 8,
+                        "iki_yazar_ikinci": 5,
+                        "cok_yazar_baslica": 5,
+                        "cok_yazar_diger": "kalan_puan / yazar_sayisi"
+                    },
+                    "aciklama": "Web of Science Journal Impact Factor Q4 dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "1b",
+                    "kriter_adi": "AHCI Makale",
+                    "puan": 20,
+                    "aciklama": "Arts and Humanities Citation Index kapsamındaki dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "1c",
+                    "kriter_adi": "ESCI veya Scopus Makale",
+                    "puan": 10,
+                    "aciklama": "Emerging Sources Citation Index veya Scopus kapsamındaki dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "1d",
+                    "kriter_adi": "Diğer Uluslararası İndeks Makale",
+                    "puan": 5,
+                    "aciklama": "Diğer uluslararası indekslerde taranan dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "1e",
+                    "kriter_adi": "Editöre Mektup/Araştırma Notu/Özet/Kitap Kritiği",
+                    "puan": 3,
+                    "aciklama": "a, b, c veya d bentleri kapsamındaki dergide yayımlanmış",
+                    "zorunlu_mu": false
+                }
+            ],
+            "madde_ozel_sart": {
+                "aciklama": "Doktora ünvanının alınmasından sonra, a bendinden Q1, Q2 veya Q3 dergilerde yayımlanmış makalelerden en az birinde başlıca yazar olmak kaydıyla 40 puan almak zorunludur",
+                "minimum_puan": 40,
+                "baslica_yazar_gerekli": true,
+                "gecerli_kategoriler": [
+                    "1a-q1",
+                    "1a-q2",
+                    "1a-q3"
+                ]
+            }
+        },
+        {
+            "madde_no": "2",
+            "kategori": "Ulusal Makale",
+            "aciklama": "Adayın hazırladığı lisansüstü tezlerden üretilmemiş olmak kaydıyla",
+            "maksimum_puan": null,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "2a",
+                    "kriter_adi": "TR Dizin Makale",
+                    "puan": 10,
+                    "aciklama": "TÜBİTAK ULAKBİM TR Dizin kapsamındaki dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "2b",
+                    "kriter_adi": "Diğer Hakemli Dergi Makale",
+                    "puan": 4,
+                    "aciklama": "Diğer hakemli dergide yayın",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "2c",
+                    "kriter_adi": "Editöre Mektup/Araştırma Notu/Özet/Kitap Kritiği",
+                    "puan": 2,
+                    "aciklama": "Hakemli dergide yayımlanmış",
+                    "zorunlu_mu": false
+                }
+            ],
+            "madde_ozel_sart": {
+                "aciklama": "Doktora ünvanının alınmasından sonra, a bendinden en az 10 puan almak zorunludur",
+                "minimum_puan": 10,
+                "gecerli_kategoriler": [
+                    "2a"
+                ]
+            },
+            "yabanci_uyruklu_istisnasi": "TR Dizin şartını sağlayamayanlar, aynı sayıdaki yayını 1. maddenin a, b veya c bentleri kapsamında yapmış olmalıdır"
+        },
+        {
+            "madde_no": "3",
+            "kategori": "Lisansüstü Tezlerden Üretilmiş Yayın",
+            "aciklama": "Adayın hazırladığı lisansüstü tezleriyle ilgili olmak kaydıyla",
+            "maksimum_puan": 20,
+            "doktora_sonrasi_mi": false,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "3a",
+                    "kriter_adi": "SCIE/SSCI/AHCI Makale",
+                    "puan": 20,
+                    "aciklama": "Tezden üretilmiş WoS Core Collection makale",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3b",
+                    "kriter_adi": "ESCI veya Scopus Makale",
+                    "puan": 10,
+                    "aciklama": "Tezden üretilmiş ESCI/Scopus makale",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3c",
+                    "kriter_adi": "Diğer Uluslararası İndeks Makale",
+                    "puan": 5,
+                    "aciklama": "Tezden üretilmiş diğer uluslararası indeks makale",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3d",
+                    "kriter_adi": "TR Dizin Makale",
+                    "puan": 8,
+                    "aciklama": "Tezden üretilmiş TR Dizin makale",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3e",
+                    "kriter_adi": "BKCI Kitap",
+                    "puan": 20,
+                    "aciklama": "Tezden üretilmiş Book Citation Index kitap",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3f",
+                    "kriter_adi": "BKCI Kitap Bölümü",
+                    "puan": 10,
+                    "aciklama": "Tezden üretilmiş BKCI kitap bölümü",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3g",
+                    "kriter_adi": "Diğer Uluslararası/Ulusal Kitap",
+                    "puan": 5,
+                    "aciklama": "Tezden üretilmiş diğer kitap",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3h",
+                    "kriter_adi": "Diğer Uluslararası/Ulusal Kitap Bölümü",
+                    "puan": 3,
+                    "aciklama": "Tezden üretilmiş diğer kitap bölümü (YÖKSİS kayıtlı editör şartı)",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3i",
+                    "kriter_adi": "CPCI Konferans Bildirisi",
+                    "puan": 5,
+                    "aciklama": "Tezden üretilmiş Conference Proceedings Citation Index bildiri",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "3j",
+                    "kriter_adi": "Diğer Konferans Bildirisi",
+                    "puan": 2,
+                    "aciklama": "Tezden üretilmiş diğer uluslararası/ulusal konferans bildirisi",
+                    "zorunlu_mu": false
+                }
+            ],
+            "madde_ozel_sart": {
+                "aciklama": "a-h bentleri kapsamında en az bir yayın zorunludur",
+                "minimum_yayin_sayisi": 1,
+                "gecerli_kategoriler": [
+                    "3a",
+                    "3b",
+                    "3c",
+                    "3d",
+                    "3e",
+                    "3f",
+                    "3g",
+                    "3h"
+                ]
+            }
+        },
+        {
+            "madde_no": "4",
+            "kategori": "Kitap",
+            "aciklama": "Adayın hazırladığı lisansüstü tezlerden üretilmemiş olmak kaydıyla",
+            "maksimum_puan": 20,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "4a",
+                    "kriter_adi": "BKCI Kitap",
+                    "puan": 20,
+                    "aciklama": "Book Citation Index kapsamındaki kitap",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "4b",
+                    "kriter_adi": "BKCI Kitap Bölümü",
+                    "puan": 10,
+                    "aciklama": "BKCI kapsamındaki kitapta bölüm",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "4c",
+                    "kriter_adi": "Diğer Uluslararası/Ulusal Kitap",
+                    "puan": 5,
+                    "aciklama": "Diğer kitap (c ve d bentlerinden toplam maks. 5 puan)",
+                    "zorunlu_mu": false,
+                    "ozel_maksimum": 5
+                },
+                {
+                    "kriter_kodu": "4d",
+                    "kriter_adi": "Diğer Uluslararası/Ulusal Kitap Bölümü",
+                    "puan": 3,
+                    "aciklama": "Diğer kitap bölümü (c ve d bentlerinden toplam maks. 5 puan, YÖKSİS kayıtlı editör şartı)",
+                    "zorunlu_mu": false,
+                    "ozel_maksimum": 5
+                }
+            ],
+            "ozel_notlar": [
+                "Sadece ders kitabı dışındaki özgün bilimsel kitaplar puanlanır",
+                "Aynı kitaptaki bölümlerden sadece biri puanlanabilir",
+                "Kitabın tüm bölümleri doçentlik bilim alanı ile ilgili olmalı"
+            ]
+        },
+        {
+            "madde_no": "5",
+            "kategori": "Atıf",
+            "aciklama": "Adayın eserlerine yapılan atıflar",
+            "maksimum_puan": 10,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "5a",
+                    "kriter_adi": "SCIE/SSCI/AHCI/ESCI/Scopus Atıf",
+                    "puan": 3,
+                    "aciklama": "WoS veya Scopus kapsamında yapılan atıf",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "5b",
+                    "kriter_adi": "BKCI Kitapta Atıf",
+                    "puan": 2,
+                    "aciklama": "Book Citation Index kapsamındaki kitapta yapılan atıf",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "5c",
+                    "kriter_adi": "TR Dizin Atıf",
+                    "puan": 2,
+                    "aciklama": "TR Dizin kapsamındaki dergide yapılan atıf",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "5d",
+                    "kriter_adi": "Diğer Atıf",
+                    "puan": 1,
+                    "aciklama": "Diğer uluslararası/ulusal kitap veya dergide yapılan atıf",
+                    "zorunlu_mu": false
+                }
+            ],
+            "madde_ozel_sart": {
+                "aciklama": "Doktora ünvanının alınmasından sonra yapılmış yayınlardan en az 5 puan alınması zorunludur",
+                "minimum_puan": 5
+            },
+            "ozel_notlar": [
+                "Öz atıflar değerlendirmeye alınmaz",
+                "Aynı yayında yapılan birden fazla atıf tek atıf sayılır"
+            ]
+        },
+        {
+            "madde_no": "6",
+            "kategori": "Lisansüstü Tez Danışmanlığı",
+            "aciklama": "Adayın danışmanlığını yürüttüğü tamamlanmış tezler",
+            "maksimum_puan": 10,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "6a",
+                    "kriter_adi": "Doktora Tezi Danışmanlığı",
+                    "puan": 5,
+                    "puan_hesaplama": {
+                        "asil_danismani": 5,
+                        "es_danismani": 2.5
+                    },
+                    "aciklama": "Tamamlanmış doktora tezi danışmanlığı",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "6b",
+                    "kriter_adi": "Yüksek Lisans Tezi Danışmanlığı",
+                    "puan": 3,
+                    "puan_hesaplama": {
+                        "asil_danismani": 3,
+                        "es_danismani": 1.5
+                    },
+                    "aciklama": "Tamamlanmış yüksek lisans tezi danışmanlığı",
+                    "zorunlu_mu": false
+                }
+            ]
+        },
+        {
+            "madde_no": "7",
+            "kategori": "Bilimsel Araştırma Projesi",
+            "aciklama": "Başarı ile tamamlanmış projeler",
+            "maksimum_puan": 30,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "7a-koordinator",
+                    "kriter_adi": "AB/TÜBİTAK Proje Koordinatör/Yürütücü",
+                    "puan": 15,
+                    "aciklama": "AB Çerçeve Programı veya TÜBİTAK (öğrenci projesi hariç) projesinde koordinatör/yürütücü",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "7a-arastirmaci",
+                    "kriter_adi": "AB/TÜBİTAK Proje Araştırmacı",
+                    "puan": 10,
+                    "aciklama": "AB Çerçeve Programı veya TÜBİTAK projesinde araştırmacı",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "7a-danismani",
+                    "kriter_adi": "AB/TÜBİTAK Proje Danışman",
+                    "puan": 5,
+                    "aciklama": "AB Çerçeve Programı veya TÜBİTAK projesinde danışman",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "7b",
+                    "kriter_adi": "Uluslararası Destekli Proje",
+                    "puan": 10,
+                    "aciklama": "Uluslararası destekli bilimsel araştırma projesinde yürütücü/araştırmacı/danışman (derleme ve rapor hazırlama hariç)",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "7c",
+                    "kriter_adi": "Ar-Ge/Ür-Ge Projesi",
+                    "puan": 5,
+                    "aciklama": "Üniversite dışı kamu/özel kuruluşla Ar-Ge/Ür-Ge projesinde yürütücü/araştırmacı/danışman",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "7d",
+                    "kriter_adi": "BAP Yürütücüsü",
+                    "puan": 3,
+                    "aciklama": "Üniversite BAP projesinde yürütücü (tez ve uzmanlık projeleri hariç)",
+                    "zorunlu_mu": false
+                }
+            ]
+        },
+        {
+            "madde_no": "8",
+            "kategori": "Bilimsel Toplantı",
+            "aciklama": "Adayın hazırladığı lisansüstü tezlerden üretilmemiş olmak kaydıyla",
+            "maksimum_puan": 10,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "8a",
+                    "kriter_adi": "CPCI Konferans Bildirisi",
+                    "puan": 5,
+                    "aciklama": "Uluslararası bilimsel toplantıda CPCI'da yayımlanmış tam metin/özet",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "8b",
+                    "kriter_adi": "Diğer Konferans Bildirisi",
+                    "puan": 3,
+                    "aciklama": "Diğer uluslararası/ulusal bilimsel toplantıda yayımlanmış tam metin/özet",
+                    "zorunlu_mu": false,
+                    "ozel_sart": "Düzenleme komitesinde üniversite/enstitü/bilimsel kurum temsilcisi bulunmalı"
+                }
+            ],
+            "madde_ozel_sart": {
+                "aciklama": "Doktora ünvanının alınmasından sonra yapılmış çalışmalardan en az 5 puan almak zorunludur",
+                "minimum_puan": 5
+            },
+            "ozel_notlar": [
+                "Aynı bilimsel toplantıda sunulan en fazla bir çalışma puanlanabilir"
+            ]
+        },
+        {
+            "madde_no": "9",
+            "kategori": "Eğitim-Öğretim",
+            "aciklama": "Doktora eğitimini tamamladıktan sonra",
+            "maksimum_puan": 6,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "9a",
+                    "kriter_adi": "Dönemlik Programda Ders",
+                    "puan": 2,
+                    "aciklama": "Dört farklı yarıyılda ön lisans/lisans/lisansüstü ders vermek",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "9b",
+                    "kriter_adi": "Yıllık Programda Ders",
+                    "puan": 2,
+                    "aciklama": "İki farklı yılda ön lisans/lisans/lisansüstü ders vermek",
+                    "zorunlu_mu": false
+                }
+            ],
+            "madde_ozel_sart": {
+                "aciklama": "En az 2 puan almak zorunludur",
+                "minimum_puan": 2
+            },
+            "otomatik_puan": {
+                "aciklama": "Doktora ünvanından sonra yükseköğretim kurumlarında en az 2 yıl kadrolu öğretim elemanı olarak görev yapanlar 2 puan almış sayılır",
+                "puan": 2
+            }
+        },
+        {
+            "madde_no": "10",
+            "kategori": "Patent/Faydalı Model",
+            "aciklama": "Patentlerde puan kişi sayısına bölünür",
+            "maksimum_puan": null,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "10a",
+                    "kriter_adi": "Uluslararası Patent",
+                    "puan": 20,
+                    "aciklama": "PCT, EPC, EAPO, ARIPO, OAPI veya doğrudan ülkesel koruma tescili",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "10b",
+                    "kriter_adi": "Ulusal Patent",
+                    "puan": 10,
+                    "aciklama": "Türk Patent ve Marka Kurumu tescilli patent",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "10c",
+                    "kriter_adi": "Faydalı Model",
+                    "puan": 5,
+                    "aciklama": "Tescil edilmiş faydalı model",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "10d",
+                    "kriter_adi": "Patent Başvurusu",
+                    "puan": 2,
+                    "aciklama": "Değerlendirmeye alınmış kişisel patent başvurusu",
+                    "zorunlu_mu": false
+                }
+            ]
+        },
+        {
+            "madde_no": "11",
+            "kategori": "Ödül",
+            "aciklama": "Prestijli akademik ödüller",
+            "maksimum_puan": 25,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "11a",
+                    "kriter_adi": "YÖK Yılın Doktora Tezi Ödülü",
+                    "puan": 25,
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "11b",
+                    "kriter_adi": "YÖK Üstün Başarı Ödülü",
+                    "puan": 25,
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "11c",
+                    "kriter_adi": "TÜBİTAK Bilim Ödülü",
+                    "puan": 25,
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "11d",
+                    "kriter_adi": "TÜBİTAK Teşvik Ödülü",
+                    "puan": 25,
+                    "aciklama": "UBYT Ödülü hariç",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "11e",
+                    "kriter_adi": "TÜBA GEBİP Ödülü",
+                    "puan": 25,
+                    "aciklama": "Türkiye Bilimler Akademisi Üstün Başarılı Genç Bilim İnsanı Ödülü",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "11f",
+                    "kriter_adi": "TÜBA TESEP Ödülü",
+                    "puan": 25,
+                    "aciklama": "Türkiye Bilimler Akademisi Bilimsel Telif Eser Ödülleri Programı",
+                    "zorunlu_mu": false
+                }
+            ]
+        },
+        {
+            "madde_no": "12",
+            "kategori": "Editörlük",
+            "aciklama": "Dergi ve kitap editörlüğü",
+            "maksimum_puan": 4,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "12a",
+                    "kriter_adi": "WoS/Scopus Dergi Editörlüğü",
+                    "puan": 2,
+                    "aciklama": "SCIE, SSCI, AHCI, ESCI veya Scopus kapsamındaki dergide editörlük",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "12b",
+                    "kriter_adi": "BKCI/Scopus Kitap Editörlüğü",
+                    "puan": 1,
+                    "aciklama": "BKCI veya Scopus kapsamındaki kitapta editörlük",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "12c",
+                    "kriter_adi": "TR Dizin Dergi Editörlüğü",
+                    "puan": 1,
+                    "aciklama": "TR Dizin kapsamındaki dergide editörlük",
+                    "zorunlu_mu": false
+                }
+            ]
+        },
+        {
+            "madde_no": "13",
+            "kategori": "Diğer",
+            "aciklama": "Ek akademik kriterler",
+            "maksimum_puan": 10,
+            "doktora_sonrasi_mi": true,
+            "alt_kategoriler": [
+                {
+                    "kriter_kodu": "13a",
+                    "kriter_adi": "h-indeksi",
+                    "puan": 5,
+                    "aciklama": "Web of Science'a göre h-indeksi en az 5 olmak",
+                    "zorunlu_mu": false
+                },
+                {
+                    "kriter_kodu": "13b",
+                    "kriter_adi": "Yurtdışı Araştırma",
+                    "puan": 5,
+                    "aciklama": "YÖK kabul ettiği sıralama kuruluşlarının ilk 300 üniversitesinde kesintisiz en az 6 ay yurtdışı araştırma/öğretim faaliyeti",
+                    "zorunlu_mu": false,
+                    "gecerli_siralamalari": [
+                        "ARWU",
+                        "CWTS Leiden",
+                        "QS",
+                        "THE",
+                        "URAP"
+                    ]
+                }
+            ]
+        }
+    ],
+    "zorunlu_sartlar": [
+        {
+            "sart_kodu": "Z1",
+            "sart": "Toplam en az 100 puan",
+            "aciklama": "Tüm maddelerden toplanan puanların asgari değeri"
+        },
+        {
+            "sart_kodu": "Z2",
+            "sart": "Doktora sonrası en az 90 puan",
+            "aciklama": "Madde 3 (tezden üretilmiş yayın) hariç tüm puanların doktora sonrası yapılmış çalışmalardan elde edilmesi"
+        },
+        {
+            "sart_kodu": "Z3",
+            "sart": "Uluslararası makalelerden (Madde 1) Q1/Q2/Q3'te başlıca yazar olarak 40 puan",
+            "aciklama": "Doktora sonrası, tezden üretilmemiş, Q1-Q2-Q3 dergilerde başlıca yazar olarak minimum 40 puan"
+        },
+        {
+            "sart_kodu": "Z4",
+            "sart": "Ulusal makalelerden (Madde 2) TR Dizin'den 10 puan",
+            "aciklama": "Doktora sonrası TR Dizin makalesinden minimum 10 puan"
+        },
+        {
+            "sart_kodu": "Z5",
+            "sart": "Tezden üretilmiş yayın (Madde 3) a-h bentlerinden en az 1 yayın",
+            "aciklama": "Makale veya kitap formatında en az bir tez yayını"
+        },
+        {
+            "sart_kodu": "Z6",
+            "sart": "Atıflardan (Madde 5) doktora sonrası yayınlardan 5 puan",
+            "aciklama": "Doktora sonrası yayımlanan eserlere yapılan atıflardan minimum 5 puan"
+        },
+        {
+            "sart_kodu": "Z7",
+            "sart": "Bilimsel toplantılardan (Madde 8) doktora sonrası 5 puan",
+            "aciklama": "Doktora sonrası konferans bildirilerinden minimum 5 puan"
+        },
+        {
+            "sart_kodu": "Z8",
+            "sart": "Eğitim-öğretimden (Madde 9) 2 puan",
+            "aciklama": "4 yarıyıl ders veya 2 yıl kadrolu öğretim elemanı"
+        }
+    ],
+    "puan_hesaplama_kurallari": {
+        "tek_yazarli_makale": "Tam puan",
+        "iki_yazarli_makale": {
+            "baslica_yazar": "Tam puanın 0.8'i",
+            "ikinci_yazar": "Tam puanın 0.5'i"
+        },
+        "cok_yazarli_makale": {
+            "baslica_yazar": "Toplam puanın yarısı",
+            "diger_yazarlar": "Diğer yarısı eşit paylaşılır"
+        },
+        "baslica_yazar_belirsiz": "Toplam puan yazarlar arasında eşit bölünür",
+        "bildiri_kitap": "Toplam puan yazarlar arasında eşit bölünür"
+    },
+    "baslica_yazar_tanimi": {
+        "a": "Tek yazarlı makale",
+        "b": "Danışmanlığını yaptığı lisansüstü öğrenci(ler) ile birlikte yazılmış makale (ikinci danışman başlıca yazar sayılmaz)"
+    },
+    "kisaltmalar": {
+        "SCIE": "Web of Science Science Citation Index Expanded",
+        "SSCI": "Web of Science Social Sciences Citation Index",
+        "AHCI": "Web of Science Art and Humanities Citation Index",
+        "ESCI": "Web of Science Emerging Sources Citation Index",
+        "TR Dizin": "TÜBİTAK ULAKBİM TR Dizin",
+        "BKCI": "Web of Science Book Citation Index",
+        "CPCI": "Web of Science Conference Proceedings Citation Index",
+        "UBYT": "TÜBİTAK Uluslararası Bilimsel Yayınları Teşvik",
+        "TÜBA GEBİP": "Türkiye Bilimler Akademisi Üstün Başarılı Genç Bilim İnsanı Ödülleri",
+        "TÜBA TESEP": "Türkiye Bilimler Akademisi Bilimsel Telif Eser Ödülleri Programı"
+    },
+    "ozel_notlar": [
+        "Her çalışma Tablo 9'da sadece bir bölümde puanlandırılır",
+        "Lisansüstü tezlerden üretilen yayınlar, Madde 3 dışında ayrıca puanlanamaz",
+        "Başvuruda bir bilim alanı ve 1-3 anahtar kelime belirtilmeli"
+    ]
+}
