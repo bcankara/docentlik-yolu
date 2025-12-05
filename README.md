@@ -206,23 +206,54 @@ define('CRITERIA_DIR', __DIR__ . '/kriterler');
 
 ---
 
-## 📱 PWA (Progressive Web App)
+## 📱 PWA (Progressive Web App) - Uygulama Olarak Kurulum
 
-### Ana Ekrana Ekleme
+Bu uygulama hem bilgisayarınıza hem de telefonunuza **masaüstü uygulaması** gibi kurulabilir.
 
-**Android/Chrome:**
-1. Sağ üst menü → "Ana ekrana ekle"
-2. App gibi kullanın!
+### 💻 Bilgisayara Kurulum (PC/Mac)
 
-**iOS/Safari:**
-1. Paylaş butonu → "Ana Ekrana Ekle"
-2. Simge ana ekranınızda görünür
+**Chrome/Edge:**
+1. Siteyi açın
+2. Adres çubuğunun sağında 📥 (indirme/kurulum) simgesine tıklayın
+3. "Yükle" veya "Install" butonuna tıklayın
+4. Uygulama masaüstünüzde kısayol olarak görünecek
 
-### Offline Çalışma
+### 📱 Android'e Kurulum
+
+**Chrome/Samsung Internet:**
+1. Siteyi açın
+2. Sayfanın altında otomatik olarak çıkan "Ana ekrana ekle" bildirimini kullanın
+   - VEYA sağ üst köşedeki ⋮ menüsünden "Ana ekrana ekle" veya "Uygulamayı yükle" seçeneğini seçin
+3. "Ekle" butonuna dokunun
+4. Uygulama ana ekranınızda bir ikon olarak görünecek
+
+### 🍎 iPhone/iPad'e Kurulum
+
+**Safari (ZORUNLU - diğer tarayıcılar desteklenmiyor):**
+1. Siteyi **Safari** ile açın
+2. Alt menüdeki 📤 (Paylaş) butonuna dokunun
+3. Aşağı kaydırın ve "Ana Ekrana Ekle" seçeneğini bulun
+4. Sağ üstteki "Ekle" butonuna dokunun
+5. Uygulama ana ekranınızda görünecek
+
+> ⚠️ **Önemli:** iOS'ta Chrome veya Firefox PWA kurulumunu desteklemez, Safari kullanmalısınız.
+
+### 🗂️ Alt Klasörde Kurulum
+
+Eğer uygulamayı bir alt klasöre kurarsanız (örn: `example.com/docent`), `manifest.json` dosyasını düzenlemelisiniz:
+
+```json
+{
+    "start_url": "./",
+    "scope": "./"
+}
+```
+
+### 📴 Offline Çalışma
 Service Worker sayesinde:
-- ✅ CSS/JS dosyaları cache'lenir
-- ✅ Offline çalışabilir (sınırlı)
-- ❌ API çağrıları internet gerektirir
+- ✅ Arayüz dosyaları önbelleğe alınır
+- ✅ İnternet olmadan da açılabilir (sınırlı)
+- ❌ Veri kaydetme/yükleme için internet gerekir
 
 ---
 

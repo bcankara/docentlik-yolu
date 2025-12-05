@@ -53,7 +53,7 @@ const UI = {
         if (this.elements.progressPercent) {
             this.elements.progressPercent.textContent = Math.round(percent) + '%';
         }
-        
+
         // Trigger effects
         if (window.Effects) {
             Effects.updateProgress(percent);
@@ -62,7 +62,7 @@ const UI = {
 
     updateLevel() {
         let level = 'Araştırmacı';
-        if (State.totalPoints >= 100 && State.allRequirementsMet) level = 'DOÇENTLİK HAZIR! ���';
+        if (State.totalPoints >= 100 && State.allRequirementsMet) level = 'DOÇENTLİK HAZIR! ���';
         else if (State.totalPoints >= 80) level = 'Kıdemli Araştırmacı';
         else if (State.totalPoints >= 50) level = 'Deneyimli';
         else if (State.totalPoints >= 25) level = 'Gelişen';
@@ -98,7 +98,7 @@ const UI = {
             <div class="quest-card" data-madde-no="${madde.madde_no}" onclick="Modal.open('${madde.madde_no}')">
                 <div class="quest-header">
                     <div class="quest-info">
-                        <span class="quest-icon">${State.questIcons[madde.madde_no] || '���'}</span>
+                        <span class="quest-icon">${State.questIcons[madde.madde_no] || '���'}</span>
                         <div>
                             <div class="quest-title">${madde.kategori}</div>
                             <div class="quest-subtitle">Madde ${madde.madde_no} ${madde.maksimum_puan ? '• Maks. ' + madde.maksimum_puan + 'p' : ''}</div>
@@ -124,7 +124,16 @@ const UI = {
 
             let questTotal = 0;
             State.tasks.filter(t => t.maddeNo === maddeNo).forEach(task => {
-                questTotal += task.checkbox ? (task.checked ? task.points : 0) : task.count * task.points;
+                // Yayın listesi varsa (yazar bazlı sistem)
+                if (task.publications && task.publications.length > 0) {
+                    task.publications.forEach(pub => {
+                        questTotal += State.calculatePublicationPoints(task, pub);
+                    });
+                } else if (task.checkbox) {
+                    if (task.checked) questTotal += task.points;
+                } else {
+                    questTotal += task.count * task.points;
+                }
             });
 
             if (madde && madde.maksimum_puan) {
@@ -133,6 +142,9 @@ const UI = {
 
             const currentEl = card.querySelector('.quest-current');
             if (currentEl) currentEl.textContent = Math.round(questTotal * 10) / 10;
+
+            // Kart stilini güncelle (puan varsa completed)
+            card.classList.toggle('has-points', questTotal > 0);
         });
     },
 

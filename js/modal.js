@@ -236,7 +236,10 @@ const Modal = {
                     <select id="author-count-${task.id}" class="author-select" onchange="Modal.updateAuthorOptions('${task.id}')">
                         <option value="1">Tek yazar</option>
                         <option value="2">2 yazar</option>
-                        <option value="3">3+ yazar</option>
+                        <option value="3">3 yazar</option>
+                        <option value="4">4 yazar</option>
+                        <option value="5">5 yazar</option>
+                        <option value="6">6+ yazar</option>
                     </select>
                     <select id="author-position-${task.id}" class="author-select">
                         <option value="baslica">Başlıca yazar</option>
@@ -251,12 +254,13 @@ const Modal = {
     },
 
     getAuthorTypeLabel(pub) {
+        const count = pub.authorCount || 1;
         const labels = {
             'tek_yazar': 'Tek yazar',
             'iki_yazar_baslica': '2 yazar (başlıca)',
-            'iki_yazar_ikinci': '2 yazar (ikinci)',
-            'cok_yazar_baslica': '3+ yazar (başlıca)',
-            'cok_yazar_diger': '3+ yazar (diğer)'
+            'iki_yazar_ikinci': '2 yazar (2. yazar)',
+            'cok_yazar_baslica': `${count} yazar (başlıca)`,
+            'cok_yazar_diger': `${count} yazar (${pub.authorPosition || 'diğer'}.)`
         };
         return labels[pub.type] || pub.type;
     },
@@ -269,17 +273,19 @@ const Modal = {
         const count = parseInt(countEl.value);
 
         if (count === 1) {
-            posEl.innerHTML = `<option value="baslica">Başlıca yazar</option>`;
+            posEl.innerHTML = `<option value="baslica">Tek yazar</option>`;
         } else if (count === 2) {
             posEl.innerHTML = `
                 <option value="baslica">Başlıca yazar</option>
-                <option value="ikinci">İkinci yazar</option>
+                <option value="2">2. yazar</option>
             `;
         } else {
-            posEl.innerHTML = `
-                <option value="baslica">Başlıca yazar</option>
-                <option value="diger">Diğer yazar</option>
-            `;
+            // 3+ yazar için pozisyon seçenekleri
+            let options = `<option value="baslica">Başlıca yazar</option>`;
+            for (let i = 2; i <= count; i++) {
+                options += `<option value="${i}">${i}. yazar</option>`;
+            }
+            posEl.innerHTML = options;
         }
     },
 
@@ -294,19 +300,33 @@ const Modal = {
         const count = parseInt(countEl.value);
         const position = posEl.value;
 
-        // Yazar tipini belirle
+        // Yazar tipini ve pozisyonunu belirle
         let authorType;
+        let authorPosition = null;
+
         if (count === 1) {
             authorType = 'tek_yazar';
         } else if (count === 2) {
-            authorType = position === 'baslica' ? 'iki_yazar_baslica' : 'iki_yazar_ikinci';
+            if (position === 'baslica') {
+                authorType = 'iki_yazar_baslica';
+            } else {
+                authorType = 'iki_yazar_ikinci';
+                authorPosition = 2;
+            }
         } else {
-            authorType = position === 'baslica' ? 'cok_yazar_baslica' : 'cok_yazar_diger';
+            // 3+ yazar
+            if (position === 'baslica') {
+                authorType = 'cok_yazar_baslica';
+            } else {
+                authorType = 'cok_yazar_diger';
+                authorPosition = parseInt(position); // 2, 3, 4, 5...
+            }
         }
 
         task.publications.push({
             type: authorType,
-            authorCount: count,
+            authorCount: count >= 6 ? 6 : count, // 6+ için 6 olarak kaydet
+            authorPosition: authorPosition,
             addedAt: Date.now()
         });
 
@@ -334,18 +354,34 @@ const Modal = {
         if (!task.puanHesaplama) return task.points;
 
         const ph = task.puanHesaplama;
+        const tamPuan = task.points;
+        const yazarSayisi = pub.authorCount || 1;
 
         switch (pub.type) {
-            case 'tek_yazar': return ph.tek_yazar || task.points;
-            case 'iki_yazar_baslica': return ph.iki_yazar_baslica || task.points * 0.8;
-            case 'iki_yazar_ikinci': return ph.iki_yazar_ikinci || task.points * 0.5;
-            case 'cok_yazar_baslica': return ph.cok_yazar_baslica || task.points * 0.5;
+            case 'tek_yazar':
+                return ph.tek_yazar || tamPuan;
+
+            case 'iki_yazar_baslica':
+                return ph.iki_yazar_baslica || tamPuan * 0.8;
+
+            case 'iki_yazar_ikinci':
+                return ph.iki_yazar_ikinci || tamPuan * 0.5;
+
+            case 'cok_yazar_baslica':
+                // 3+ yazarlı: Başlıca yazar tam puanın %50'sini alır
+                return ph.cok_yazar_baslica || tamPuan * 0.5;
+
             case 'cok_yazar_diger':
-                // Kalan puan / yazar sayısı
-                const baslicaPuan = ph.cok_yazar_baslica || task.points * 0.5;
-                const kalanPuan = task.points - baslicaPuan;
-                return kalanPuan / (pub.authorCount || 3);
-            default: return task.points;
+                // ÜAK Kuralı: Diğer yazarlar kalan %50'yi eşit paylaşır
+                // Kalan puan = Tam puan * 0.5
+                // Her diğer yazar = Kalan puan / (Toplam yazar - 1)
+                const baslicaPuan = ph.cok_yazar_baslica || tamPuan * 0.5;
+                const kalanPuan = tamPuan - baslicaPuan;
+                const digerYazarSayisi = yazarSayisi - 1; // Başlıca yazar hariç
+                return kalanPuan / digerYazarSayisi;
+
+            default:
+                return tamPuan;
         }
     },
 

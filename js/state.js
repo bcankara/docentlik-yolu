@@ -118,17 +118,26 @@ const State = {
         if (!task.puanHesaplama) return task.points;
 
         const ph = task.puanHesaplama;
+        const tamPuan = task.points;
+        const yazarSayisi = pub.authorCount || 1;
 
         switch (pub.type) {
-            case 'tek_yazar': return ph.tek_yazar || task.points;
-            case 'iki_yazar_baslica': return ph.iki_yazar_baslica || task.points * 0.8;
-            case 'iki_yazar_ikinci': return ph.iki_yazar_ikinci || task.points * 0.5;
-            case 'cok_yazar_baslica': return ph.cok_yazar_baslica || task.points * 0.5;
+            case 'tek_yazar':
+                return ph.tek_yazar || tamPuan;
+            case 'iki_yazar_baslica':
+                return ph.iki_yazar_baslica || tamPuan * 0.8;
+            case 'iki_yazar_ikinci':
+                return ph.iki_yazar_ikinci || tamPuan * 0.5;
+            case 'cok_yazar_baslica':
+                return ph.cok_yazar_baslica || tamPuan * 0.5;
             case 'cok_yazar_diger':
-                const baslicaPuan = ph.cok_yazar_baslica || task.points * 0.5;
-                const kalanPuan = task.points - baslicaPuan;
-                return kalanPuan / (pub.authorCount || 3);
-            default: return task.points;
+                // ÜAK Kuralı: Diğer yazarlar kalan %50'yi eşit paylaşır
+                const baslicaPuan = ph.cok_yazar_baslica || tamPuan * 0.5;
+                const kalanPuan = tamPuan - baslicaPuan;
+                const digerYazarSayisi = yazarSayisi - 1;
+                return kalanPuan / digerYazarSayisi;
+            default:
+                return tamPuan;
         }
     },
 
