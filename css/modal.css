@@ -961,11 +961,13 @@ body.view-only-mode .task-item:hover {
         right: 0 !important;
         width: 100% !important;
         border-radius: 0 !important;
-        padding: 12px 15px !important;
+        padding: 14px 20px !important;
         background: linear-gradient(135deg, rgba(0, 240, 255, 0.95), rgba(170, 0, 255, 0.95)) !important;
         border: none !important;
         border-top: 2px solid var(--neon-blue) !important;
         z-index: 9999 !important;
+        justify-content: center !important;
+        gap: 15px !important;
     }
 
     .install-prompt span {
