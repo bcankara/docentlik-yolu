@@ -970,11 +970,28 @@ body.view-only-mode .task-item:hover {
 
     .install-prompt span {
         color: white !important;
+        font-size: 0.9rem;
     }
 
     .install-prompt .install-btn {
         background: white !important;
         color: var(--bg-dark) !important;
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .install-prompt .install-close {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        font-size: 1.5rem !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+        border: 2px solid white !important;
+        border-radius: 50% !important;
+        color: white !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
     /* Author select mobil */
