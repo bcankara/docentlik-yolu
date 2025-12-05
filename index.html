@@ -73,6 +73,14 @@
         <header class="header">
             <div class="header-top">
                 <button class="btn-area-change" onclick="showAreaSelection()">📚 Alan</button>
+
+                <!-- PWA Install Button -->
+                <div class="install-prompt" id="install-prompt">
+                    <span>📲 Uygulamayı Yükle</span>
+                    <button class="install-btn" onclick="installPWA()">Yükle</button>
+                    <button class="install-close" onclick="dismissInstall()">×</button>
+                </div>
+
                 <button class="btn-logout" id="btn-logout">🚪 Çıkış</button>
             </div>
             <h1>🎮 DOÇENTLİK YOLU</h1>
@@ -150,11 +158,7 @@
 
     <div class="save-indicator" id="save-indicator">✓ Kaydedildi</div>
 
-    <div class="install-prompt" id="install-prompt">
-        <span>📲 Uygulamayı Yükle</span>
-        <button class="install-btn" onclick="installPWA()">Yükle</button>
-        <button class="install-close" onclick="dismissInstall()">×</button>
-    </div>
+
 
     <!-- Modüler JS -->
     <script src="js/state.js"></script>

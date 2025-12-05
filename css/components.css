@@ -375,73 +375,74 @@
     transform: translateY(0);
 }
 
-/* Install Prompt - Üst Sabit Banner */
+/* Install Prompt - Header İçinde */
 .install-prompt {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(170, 0, 255, 0.15));
-    border-bottom: 2px solid var(--neon-blue);
-    padding: 12px 20px;
-    display: none; /* JS ile gösterilecek */
-    justify-content: center;
+    display: none;
+    /* JS ile gösterilecek */
     align-items: center;
-    gap: 15px;
-    z-index: 2000;
-    font-size: 0.9rem;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    animation: slideDown 0.5s ease;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(170, 0, 255, 0.15));
+    border: 1px solid var(--neon-blue);
+    padding: 8px 15px;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    animation: pulse-glow 2s ease-in-out infinite;
 }
 
-@keyframes slideDown {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0); }
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    }
 }
 
 .install-prompt span {
     color: var(--text-primary);
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .install-prompt .install-btn {
     background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
     border: none;
     color: white;
-    padding: 8px 20px;
+    padding: 6px 14px;
     border-radius: var(--radius-full);
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     transition: all 0.3s;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
 }
 
 .install-prompt .install-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
 }
 
 .install-prompt .install-close {
     background: transparent;
-    border: 1px solid var(--border-color);
+    border: none;
     color: var(--text-secondary);
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s;
+    padding: 0;
 }
 
 .install-prompt .install-close:hover {
-    border-color: var(--danger);
     color: var(--danger);
 }
+
 /* Progress Bar Runner Character */
 .progress-runner {
     position: absolute;
@@ -450,7 +451,7 @@
     transform: translateY(-50%);
     font-size: 1.3rem;
     animation: runBounce 0.4s ease-in-out infinite;
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
     z-index: 10;
 }
 
@@ -482,10 +483,21 @@
     box-shadow: 0 0 10px var(--neon-yellow);
 }
 
-.milestone:nth-child(1) { left: 25%; }
-.milestone:nth-child(2) { left: 50%; }
-.milestone:nth-child(3) { left: 75%; }
-.milestone:nth-child(4) { left: 100%; }
+.milestone:nth-child(1) {
+    left: 25%;
+}
+
+.milestone:nth-child(2) {
+    left: 50%;
+}
+
+.milestone:nth-child(3) {
+    left: 75%;
+}
+
+.milestone:nth-child(4) {
+    left: 100%;
+}
 
 /* Confetti burst container */
 .confetti-container {
