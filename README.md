@@ -238,9 +238,26 @@ Bu uygulama hem bilgisayarınıza hem de telefonunuza **masaüstü uygulaması**
 
 > ⚠️ **Önemli:** iOS'ta Chrome veya Firefox PWA kurulumunu desteklemez, Safari kullanmalısınız.
 
-### 🗂️ Alt Klasörde Kurulum
+### 🗂️ Alt Klasörde Kurulum (Önemli!)
 
-Eğer uygulamayı bir alt klasöre kurarsanız (örn: `example.com/docent`), `manifest.json` dosyasını düzenlemelisiniz:
+Eğer uygulamayı **ana domain yerine alt klasöre** kuruyorsanız, PWA'nın doğru çalışması için `manifest.json` dosyasını düzenlemeniz gerekir.
+
+**Örnek Senaryolar:**
+
+| Kurulum Yeri | start_url | scope |
+|--------------|-----------|-------|
+| `example.com` (kök dizin) | `./` veya `/` | `./` veya `/` |
+| `example.com/docent` | `./` | `./` |
+| `example.com/apps/docent` | `./` | `./` |
+
+**Ne zaman değiştirmeniz gerekir?**
+- ❌ `example.com` → Değiştirmenize **gerek yok** (varsayılan ayarlar çalışır)
+- ✅ `example.com/docent` → Aşağıdaki gibi düzenleyin
+
+**Nasıl düzenlenir?**
+
+1. `manifest.json` dosyasını açın
+2. `start_url` ve `scope` değerlerinin `./` olduğundan emin olun:
 
 ```json
 {
@@ -248,6 +265,8 @@ Eğer uygulamayı bir alt klasöre kurarsanız (örn: `example.com/docent`), `ma
     "scope": "./"
 }
 ```
+
+> 💡 **İpucu:** `./` göreceli yol kullanmak, uygulamanın hangi klasörde olduğunu otomatik algılamasını sağlar.
 
 ### 📴 Offline Çalışma
 Service Worker sayesinde:
