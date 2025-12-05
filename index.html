@@ -63,8 +63,9 @@
     </div>
 
     <!-- Alan Seçimi -->
-    <div class="area-overlay" id="area-overlay">
+    <div class="area-overlay" id="area-overlay" onclick="closeAreaOnOverlay(event)">
         <div class="area-box">
+            <button class="area-close" onclick="UI.hideAreaSelection()">×</button>
             <h2>📚 Alan Seçimi</h2>
             <p>Doçentlik alanınızı seçin</p>
             <div class="area-list" id="area-list"></div>

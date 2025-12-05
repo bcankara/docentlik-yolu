@@ -205,3 +205,6 @@ const UI = {
 
 window.UI = UI;
 window.showAreaSelection = () => UI.showAreaSelection();
+window.closeAreaOnOverlay = (e) => {
+    if (e.target.id === 'area-overlay') UI.hideAreaSelection();
+};
